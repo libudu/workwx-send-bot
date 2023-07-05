@@ -22,7 +22,7 @@
     "typescript": "~5.0"
   },
   "scripts": {
-    "start": "node build/src/main.js",
+    "start": "ts-node src/main.ts",
     "clean": "rimraf coverage build tmp",
     "prebuild": "npm run lint",
     "build": "tsc -p tsconfig.json",
@@ -36,6 +36,8 @@
   "author": "Jakub Synowiec <jsynowiec@users.noreply.github.com>",
   "license": "Apache-2.0",
   "dependencies": {
+    "axios": "^1.4.0",
+    "ts-node": "^10.9.1",
     "tslib": "~2.5"
   },
   "volta": {

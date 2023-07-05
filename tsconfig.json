@@ -1,4 +1,7 @@
 {
+  "ts-node": {
+    "esm": true
+  },
   "compilerOptions": {
     "target": "es2022",
     "module": "node16",
@@ -13,8 +16,8 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noImplicitAny": false,
     "noImplicitThis": false,
     "strictNullChecks": false
