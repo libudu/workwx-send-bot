@@ -1,13 +1,11 @@
-import { fetchBestofJsItemList, fetchInfoqItemList } from './fetch.js';
-import { send } from './send.js';
+import { sendBestofjs } from "./send/bestofjs.js";
+import { sendInfoq } from "./send/infoq.js";
+
 
 
 const main = async () => {
-  // const infoqList = await fetchInfoqItemList()
-  // console.log(infoqList)
-  // const bestofJsList = await fetchBestofJsItemList()
-  // console.log(bestofJsList)
-  send()
+  // sendBestofjs()
+  sendInfoq()
 }
 
 main();
