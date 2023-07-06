@@ -1,6 +1,5 @@
 import axios from "axios";
 import { isDev } from "../env.js";
-import { weixin_webhook_list } from "../config.js";
 
 export const proxy = isDev ? {
   host: '127.0.0.1',
@@ -50,11 +49,11 @@ export const makeSender = ({
   fetchDataList: () => Promise<ContentItemType[]>;
   makeTemplate: (list: ContentItemType[]) => string; 
 }) => {
-  return async () => {
+  return async (web_hook: string) => {
     try {
       const list = await fetchDataList()
       const template = makeTemplate(list)
-      const res = await axios.post(weixin_webhook_list[0], {
+      const res = await axios.post(web_hook, {
         "msgtype": "markdown",
         "markdown": {
           "content": trimInnerSpace(template),
