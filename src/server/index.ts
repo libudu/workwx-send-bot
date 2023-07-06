@@ -1,6 +1,6 @@
 import express from 'express'
 import { sendMap } from '../index.js'
-import { InfoTypeList, RateTypeList, subscribeWebhook, unsubscribeWebhook } from '../store/index.js'
+import { InfoType, InfoTypeList, RateTypeList, subscribeWebhook, unsubscribeWebhook } from '../store/index.js'
 
 const app = express()
 
@@ -33,7 +33,7 @@ app.get("/send", async (req, res) => {
 })
 
 // 订阅
-app.get('/subscribe', async (req, res) => {
+app.get('/wx/subscribe', async (req, res) => {
   const { type, webhook, rate, name } = req.query
   if(InfoTypeList.includes(type as any) && typeof webhook === 'string' && RateTypeList.includes(rate as any) && typeof name === 'string') {
     const webhookList = await subscribeWebhook({
@@ -42,10 +42,17 @@ app.get('/subscribe', async (req, res) => {
       rate: rate as any,
       name,
     })
-    res.send({
-      msg: "订阅成功",
-      data: webhookList,
-    })
+    if(webhookList) {
+      res.send({
+        msg: "订阅成功",
+        data: webhookList,
+      })
+    } else {
+      res.send({
+        error: true,
+        msg: "当前webhook订阅已经存在",
+      })
+    }
   } else {
     res.send({
       error: true,
@@ -55,9 +62,9 @@ app.get('/subscribe', async (req, res) => {
 })
 
 // 取消订阅
-app.get("/unsubscribe", async (req, res) => {
-  const { webhook } = req.query
-  const result = await unsubscribeWebhook(webhook as string)
+app.get("/wx/unsubscribe", async (req, res) => {
+  const { webhook, type } = req.query
+  const result = await unsubscribeWebhook(webhook as string, type as InfoType)
   if(result === null) {
     res.send({
       error: true,

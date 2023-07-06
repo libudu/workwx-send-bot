@@ -10,8 +10,8 @@ export const RateTypeList = [
   'week',
 ]
 
-type InfoType = typeof InfoTypeList[number]
-type RateType = typeof RateTypeList[number]
+export type InfoType = typeof InfoTypeList[number]
+export type RateType = typeof RateTypeList[number]
 
 interface IWebhookSubscribe {
   name: string;
@@ -33,12 +33,22 @@ const DEFAULT_STORE: IStore = {
 }
 
 const saveStore = async () => {
-  return fs.writeFile(FILE_NAME, JSON.stringify(store))
+  return fs.writeFile(FILE_NAME, JSON.stringify(store, null, 2))
+}
+
+// 判断文件是否存在
+const fileExist = async (fileName: string) => {
+  try {
+    await fs.stat(fileName);
+    return true
+  } catch (err) {
+    return false
+  }
 }
 
 export const initStore: () => Promise<IStore> = async () => {
   // 判断文件是否存在
-  if (!(await fs.stat(FILE_NAME)).isFile()) {
+  if (await fileExist(FILE_NAME)) {
     // 已存在，尝试读取文件
     const content = await fs.readFile(FILE_NAME)
     store = JSON.parse(content.toString())
@@ -51,17 +61,26 @@ export const initStore: () => Promise<IStore> = async () => {
 }
 
 
+const findWebhookSubscribe = (webhook: string, type: InfoType) => {
+  return store.webhookList.find((item) => item.webhook === webhook && item.type === type)
+}
+
 // 新增订阅一个webhook
 export const subscribeWebhook = async (webhookSubscribe: IWebhookSubscribe) => {
+  const { webhook, type } = webhookSubscribe
+  // 已存在无法新增
+  if(findWebhookSubscribe(webhook, type)) {
+    return null;
+  }
   store.webhookList.push(webhookSubscribe)
   await saveStore()
   return store.webhookList
 }
 
 // 取消订阅一个webhook
-export const unsubscribeWebhook = async (webhook: string) => {
-  if(store.webhookList.find((item) => item.webhook === webhook)) {
-    store.webhookList = store.webhookList.filter((item) => item.webhook !== webhook)
+export const unsubscribeWebhook = async (webhook: string, type: InfoType) => {
+  if(findWebhookSubscribe(webhook, type)) {
+    store.webhookList = store.webhookList.filter((item) => item.webhook !== webhook || item.type !== type)
     await saveStore()
     return store.webhookList
   } else {
