@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ContentItemType, makeSender, truncateString } from "./util.js";
+import { ContentItemType, getDateStr, makeSender, truncateString } from "./util.js";
 
 
 // infoq 最近热点
@@ -32,7 +32,7 @@ const infoqTemplate = (contentList: ContentItemType[]) => {
   }).join("\n\t");
   // todo: 把项目发布到github然后更新这里的项目地址链接
   return `
-    ## infoq 每周精要
+    ## infoq 每周精要 ${getDateStr()}
     ${contentStr}
 
     infoq官网：[点击跳转](https://www.infoq.cn/)

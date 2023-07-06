@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ContentItemType, makeSender, proxy } from "./util.js";
+import { ContentItemType, getDateStr, makeSender, proxy } from "./util.js";
 
 // bestofjs 最新js技术
 export const fetchBestofJsItemList = async () => {
@@ -39,7 +39,7 @@ const bestofjsTemplate = (contentList: ContentItemType[]) => {
   }).join("\n\t");
 
   return `
-    ## bestofjs 周报
+    ## bestofjs 周报 ${getDateStr()}
     <font color="">每周最热 js 技术，献给最好的 js 💖</font>
     
     ${contentStr}

@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 
 app.get("/send", async (req, res) => {
   const { type, web_hook } = req.query
-  if(type && web_hook && typeof type === 'string' && typeof web_hook === 'string') {
+  if(type && web_hook && typeof type === 'string' && typeof web_hook === 'string' && typeof sendMap[type] === 'function') {
     try {
       const result = await sendMap[type](web_hook)
       res.send({
@@ -27,9 +27,10 @@ app.get("/send", async (req, res) => {
         error: true,
         data: error,
       })
+      console.log("error", error)
     }
   } else {
-    return res.send({
+    res.send({
       error: true,
       msg: "type 或 web_hook 参数错误"
     })

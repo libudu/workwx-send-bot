@@ -16,6 +16,7 @@ export interface ContentItemType {
   hot?: number;
 }
 
+// 按长度截断字符串，中文算2单位长度
 export const truncateString = (str: string, num: number): string => {
   let len = 0; // 计算总长度
   let result = ''; // 截取的结果
@@ -38,8 +39,13 @@ export const truncateString = (str: string, num: number): string => {
   return result;
 }
 
+// 去除换行后面的空格，用于 js 格式化字符串
 const trimInnerSpace = (str: string) => {
   return str.trim().replaceAll(/\n[ ]*/g, '\n')
+}
+
+export const getDateStr = () => {
+  return new Date().toLocaleDateString("zh")
 }
 
 export const makeSender = ({
@@ -50,18 +56,14 @@ export const makeSender = ({
   makeTemplate: (list: ContentItemType[]) => string; 
 }) => {
   return async (web_hook: string) => {
-    try {
-      const list = await fetchDataList()
-      const template = makeTemplate(list)
-      const res = await axios.post(web_hook, {
-        "msgtype": "markdown",
-        "markdown": {
-          "content": trimInnerSpace(template),
-        }
-      })
-      console.log("响应结果：", res.data)
-    } catch (error) {
-      console.log(error)
-    }
+    const list = await fetchDataList()
+    const template = makeTemplate(list)
+    const res = await axios.post(web_hook, {
+      "msgtype": "markdown",
+      "markdown": {
+        "content": trimInnerSpace(template),
+      }
+    })
+    return res.data;
   }
 }
