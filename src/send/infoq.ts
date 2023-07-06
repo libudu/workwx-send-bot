@@ -26,13 +26,17 @@ const infoqTemplate = (contentList: ContentItemType[]) => {
     const titleStr = `${index}、[${title}](${content.link})`
     const tagStr = `<font color="comment">${content.tags?.join(" | ")}</font>`
     return `
-      ${titleStr} ${tagStr}
+      ${titleStr}    ${tagStr}
       ${content.summary}
     `
   }).join("\n\t");
+  // todo: 把项目发布到github然后更新这里的项目地址链接
   return `
     ## infoq 每周精要
     ${contentStr}
+
+    infoq官网：[点击跳转](https://www.infoq.cn/)
+    推送项目地址：[点击跳转](https://github.com/libudu)
   `
 }
 
