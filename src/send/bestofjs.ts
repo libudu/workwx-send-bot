@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ContentItemType, getDateStr, makeSender, proxy } from "./util.js";
+import { PROJECT_URL } from "../env.js";
 
 // bestofjs 最新js技术
 export const fetchBestofJsItemList = async () => {
@@ -45,7 +46,7 @@ const bestofjsTemplate = (contentList: ContentItemType[]) => {
     ${contentStr}
     
     bestofjs官网：[点击跳转](https://bestofjs.org/)
-    推送项目地址：[点击跳转](https://github.com/libudu)
+    推送项目地址：[点击跳转](${PROJECT_URL})
   `
 }
 

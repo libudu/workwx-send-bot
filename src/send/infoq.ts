@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ContentItemType, getDateStr, makeSender, truncateString } from "./util.js";
+import { PROJECT_URL } from "../env.js";
 
 
 // infoq 最近热点
@@ -36,7 +37,7 @@ const infoqTemplate = (contentList: ContentItemType[]) => {
     ${contentStr}
 
     infoq官网：[点击跳转](https://www.infoq.cn/)
-    推送项目地址：[点击跳转](https://github.com/libudu)
+    推送项目地址：[点击跳转](${PROJECT_URL})
   `
 }
 
