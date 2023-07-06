@@ -1,5 +1,6 @@
 import express from 'express'
 import { sendMap } from '../index.js'
+import { InfoTypeList, RateTypeList, subscribeWebhook, unsubscribeWebhook } from '../store/index.js'
 
 const app = express()
 
@@ -7,13 +8,13 @@ app.get("/", (req, res) => {
   res.send("hello this is wxwork-send-bot")
 })
 
+// 发送消息的二次封装网络接口
 app.get("/send", async (req, res) => {
-  const { type, web_hook } = req.query
-  if(type && web_hook && typeof type === 'string' && typeof web_hook === 'string' && typeof sendMap[type] === 'function') {
+  const { type, webhook } = req.query
+  if(typeof type === 'string' && typeof webhook === 'string' && typeof sendMap[type] === 'function') {
     try {
-      const result = await sendMap[type](web_hook)
+      const result = await sendMap[type](webhook)
       res.send({
-        error: false,
         data: result,
       })
     } catch (error) {
@@ -27,6 +28,45 @@ app.get("/send", async (req, res) => {
     res.send({
       error: true,
       msg: "type 或 web_hook 参数错误"
+    })
+  }
+})
+
+// 订阅
+app.get('/subscribe', async (req, res) => {
+  const { type, webhook, rate, name } = req.query
+  if(InfoTypeList.includes(type as any) && typeof webhook === 'string' && RateTypeList.includes(rate as any) && typeof name === 'string') {
+    const webhookList = await subscribeWebhook({
+      type: type as any,
+      webhook,
+      rate: rate as any,
+      name,
+    })
+    res.send({
+      msg: "订阅成功",
+      data: webhookList,
+    })
+  } else {
+    res.send({
+      error: true,
+      msg: "type 或 web_hook 或 rate 参数错误"
+    })
+  }
+})
+
+// 取消订阅
+app.get("/unsubscribe", async (req, res) => {
+  const { webhook } = req.query
+  const result = await unsubscribeWebhook(webhook as string)
+  if(result === null) {
+    res.send({
+      error: true,
+      msg: "取消订阅的webhook不存在"
+    })
+  } else {
+    res.send({
+      msg: "取消订阅成功",
+      data: result,
     })
   }
 })
