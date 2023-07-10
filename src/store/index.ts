@@ -56,6 +56,7 @@ export const initStore: () => Promise<IStore> = async () => {
     // 已存在，尝试读取文件
     const content = await fs.readFile(FILE_NAME)
     store = JSON.parse(content.toString())
+    console.log("初始化数据成功，读取到", store.webhookList.length, "条 webhook订阅")
   } else {
     // 不存在，使用默认配置并保存为文件
     store = DEFAULT_STORE;
