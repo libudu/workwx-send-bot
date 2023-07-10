@@ -1,6 +1,7 @@
 import express from 'express'
 import { InfoType, InfoTypeList, RateTypeList, getStore, subscribeWebhook, unsubscribeWebhook } from '../store/index.js'
 import { sendMap } from '../send/index.js'
+import { DEFAULT_SERVER_PORT } from '../config.js'
 
 const app = express()
 
@@ -83,8 +84,8 @@ app.get("/wx/list", async (req, res) => {
   return res.send(getStore().webhookList)
 })
 
-export const startServer = (port = 3000) => {
+export const startServer = (port = DEFAULT_SERVER_PORT) => {
   app.listen(port, () => {
-    console.log("express 启动成功", "http://localhost:3000")
+    console.log(`express 启动成功 http://localhost:${DEFAULT_SERVER_PORT}`)
   })
 }
