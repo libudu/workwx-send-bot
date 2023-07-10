@@ -1,5 +1,18 @@
 基于 webhook 的微信机器人，每周推送最新 infoq 和 bestofjs 咨询
 
+订阅推送：通过 HTTP 接口或 json 文件对指定群聊机器人订阅指定消息类型
+
+指定频率：可以每周推送一次或每日推送一次
+
+易于拓展：简易拓展任何基于其他平台其他接口的其他消息类型
+
+易于配置：配置项收敛于 config.ts 中，易于配置和定制化
+
+
+## 基础命令
+
+`yarn` 安装依赖
+
 `yarn start` 启动
 
 `yarn build` 构建
@@ -10,19 +23,29 @@
 
 /wx/subscribe?type=订阅类型&webhook=企业微信机器人webhook&rate=推送频率&name=订阅名称
 
-> 订阅类型 type：当前仅支持infoq和bestofjs
-> 
-> 推送频率 rate：day或week，day表示每天上午9点，week表示每周一上午9点。建议本项目的开发和测试群每天推送用以确认程序流程正确，线上大群每周推送
->
-> 订阅名称：没有实际作用，仅作为此条订阅的备注，说明订阅的是哪个群，避免订阅群聊过多后无法区分
+订阅类型 type：当前仅支持infoq和bestofjs
 
+推送频率 rate：day或week，day表示每天上午9点，week表示每周一上午9点。建议本项目的开发和测试群每天推送用以确认程序流程正确，线上大群每周推送
 
+订阅名称：没有实际作用，仅作为此条订阅的备注，说明订阅的是哪个群，避免订阅群聊过多后无法区分
+
+<br />
+
+取消订阅
+
+/wx/unsubscribe?webhook=企业微信机器人webhook&type=订阅类型
+
+订阅类型 type 同上
 
 ## 配置项
 
 /src/config.ts
 
-默认端口 DEFAULT_SERVER_PORT：默认 3000 地址
+DEFAULT_SERVER_PORT：服务器启动的端口，默认 3000 地址
+
+SCHEDULE_PUSH_HOUR：订阅推送的整点时间，默认9点推送
+
+SCHEDULE_PUSH_WEEK_DAY：订阅每周推送的周几，默认每周一推送
 
 ## 二次开发
 
