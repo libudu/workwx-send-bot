@@ -55,10 +55,10 @@ export const makeSender = ({
   fetchDataList: () => Promise<ContentItemType[]>;
   makeTemplate: (list: ContentItemType[]) => string; 
 }) => {
-  return async (web_hook: string) => {
+  return async (webhook: string) => {
     const list = await fetchDataList()
     const template = makeTemplate(list)
-    const res = await axios.post(web_hook, {
+    const res = await axios.post(webhook, {
       "msgtype": "markdown",
       "markdown": {
         "content": trimInnerSpace(template),

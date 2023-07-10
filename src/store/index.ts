@@ -8,7 +8,7 @@ export const InfoTypeList = [
 export const RateTypeList = [
   'day',
   'week',
-]
+] as const
 
 export type InfoType = typeof InfoTypeList[number]
 export type RateType = typeof RateTypeList[number]
@@ -30,6 +30,10 @@ let store: IStore;
 
 const DEFAULT_STORE: IStore = {
   webhookList: [],
+}
+
+export const getStore = () => {
+  return store
 }
 
 const saveStore = async () => {

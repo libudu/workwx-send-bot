@@ -1,15 +1,14 @@
-import { scheduleEveryDay } from "./schedule/index.js"
-import { sendBestofjs } from "./send/bestofjs.js"
-import { sendInfoq } from "./send/infoq.js"
+import { scheduleStore } from "./schedule/index.js"
 import { startServer } from "./server/index.js"
 import { initStore } from "./store/index.js"
 
-export const sendMap = {
-  bestofjs: sendBestofjs,
-  infoq: sendInfoq,
+const main = async () => {
+  // 初始化持久化数据
+  await initStore()
+  // 订阅store自动推送
+  scheduleStore()
+  // 启动服务器
+  startServer()
 }
 
-
-initStore().then(() => {
-  startServer()
-});
+main()

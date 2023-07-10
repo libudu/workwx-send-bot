@@ -1,6 +1,6 @@
 import express from 'express'
-import { sendMap } from '../index.js'
 import { InfoType, InfoTypeList, RateTypeList, subscribeWebhook, unsubscribeWebhook } from '../store/index.js'
+import { sendMap } from '../send/index.js'
 
 const app = express()
 
@@ -27,7 +27,7 @@ app.get("/send", async (req, res) => {
   } else {
     res.send({
       error: true,
-      msg: "type 或 web_hook 参数错误"
+      msg: "type 或 webhook 参数错误"
     })
   }
 })
@@ -50,13 +50,13 @@ app.get('/wx/subscribe', async (req, res) => {
     } else {
       res.send({
         error: true,
-        msg: "当前webhook订阅已经存在",
+        msg: "当前 webhook 订阅已经存在",
       })
     }
   } else {
     res.send({
       error: true,
-      msg: "type 或 web_hook 或 rate 参数错误"
+      msg: "type 或 webhook 或 rate 参数错误"
     })
   }
 })
