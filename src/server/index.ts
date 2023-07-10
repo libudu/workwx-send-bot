@@ -1,5 +1,5 @@
 import express from 'express'
-import { InfoType, InfoTypeList, RateTypeList, subscribeWebhook, unsubscribeWebhook } from '../store/index.js'
+import { InfoType, InfoTypeList, RateTypeList, getStore, subscribeWebhook, unsubscribeWebhook } from '../store/index.js'
 import { sendMap } from '../send/index.js'
 
 const app = express()
@@ -56,7 +56,7 @@ app.get('/wx/subscribe', async (req, res) => {
   } else {
     res.send({
       error: true,
-      msg: "type 或 webhook 或 rate 参数错误"
+      msg: "type 或 webhook 或 rate 或 name 参数错误"
     })
   }
 })
@@ -78,6 +78,10 @@ app.get("/wx/unsubscribe", async (req, res) => {
   }
 })
 
+// 查询当前所有订阅
+app.get("/wx/list", async (req, res) => {
+  return res.send(getStore().webhookList)
+})
 
 export const startServer = (port = 3000) => {
   app.listen(port, () => {
