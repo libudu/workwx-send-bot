@@ -25,8 +25,12 @@ export const scheduleStore = () => {
   schedule.scheduleJob(`0 0 ${SCHEDULE_PUSH_HOUR} * * *`, () => {
     const { webhookList } = getStore()
     webhookList.forEach(({ webhook, rate, type }) => {
-      if(rate === 'day' || rate === 'week' && new Date().getDay() === SCHEDULE_PUSH_WEEK_DAY) {
-        sendMap[type](webhook)
+      const send = () => sendMap[type](webhook)
+      if(rate === 'day' && new Date().getDay() !== SCHEDULE_PUSH_WEEK_DAY) {
+        send()
+      }
+      if(rate === 'week' && new Date().getDay() === SCHEDULE_PUSH_WEEK_DAY) {
+        send()
       }
     })
   })
