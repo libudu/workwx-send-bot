@@ -12,7 +12,7 @@ export const fetchBestofJsItemList = async () => {
   // 按 weekly 排序
   rawProjects = rawProjects.sort((a, b) => b.trends.weekly - a.trends.weekly).slice(0, 10)
   return rawProjects.map(item => ({
-    link: item.url,
+    link: item.url || `https://github.com/${item.full_name}`,
     title: item.name,
     summary: item.description,
     cover: `https://avatars.githubusercontent.com/u/${item.owner_id}?v=3&s=50`,
