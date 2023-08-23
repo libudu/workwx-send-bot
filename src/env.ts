@@ -1,3 +1,7 @@
+import { config } from "dotenv"
+config()
+
 export const isDev = process.env.NODE_ENV === 'development'
 
-export const PROJECT_URL = 'https://github.com/libudu/workwx-send-bot'
+const DEFAULT_PROJECT_URL = 'https://github.com/libudu/workwx-send-bot'
+export const PROJECT_URL = process.env.PROJECT_URL || DEFAULT_PROJECT_URL
