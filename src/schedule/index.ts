@@ -2,22 +2,23 @@ import schedule from 'node-schedule'
 import { getStore } from '../store/index.js'
 import { sendMap } from '../send/index.js'
 import { SCHEDULE_PUSH_HOUR, SCHEDULE_PUSH_WEEK_DAY } from '../config.js'
+import { sendClockIn } from '../send/clockin.js'
+import { CLOCKIN_WEBHOOK } from '../env.js'
 
-// // 每周一9：00播报
-// export const scheduleEveryWeek = (name: string, func: () => void) => {
-//   schedule.scheduleJob("0 0 9 * * 1", () => {
-//     func()
-//     console.log(new Date().toLocaleTimeString(), "执行任务", name)
-//   })
-// }
-
-// // 每天9：00播报
-// export const scheduleEveryDay = (name: string, func: () => void) => {
-//   schedule.scheduleJob("0 0 9 * * *", () => {
-//     func()
-//     console.log(new Date().toLocaleTimeString(), "执行任务", name)
-//   })
-// }
+// 定时打卡提醒
+export const scheduleClockIn = () => {
+  if(!CLOCKIN_WEBHOOK) {
+    console.log('[info] 未设置打卡提醒 webhook，不会进行打卡提醒')
+    return
+  }
+  console.log('[info] 已设置打卡提醒 webhook')
+  schedule.scheduleJob('0 50 8 * * 1-5', async () => {
+    sendClockIn({ type: 'clockin' })
+  })
+  schedule.scheduleJob('0 30 18 * * 1-5', async () => {
+    sendClockIn({ type: 'clockout' })
+  })
+}
 
 // 订阅store中记录的
 export const scheduleStore = () => {

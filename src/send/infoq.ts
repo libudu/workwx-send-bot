@@ -31,7 +31,6 @@ const infoqTemplate = (contentList: ContentItemType[]) => {
       ${content.summary}
     `
   }).join("\n\t");
-  // todo: 把项目发布到github然后更新这里的项目地址链接
   return `
     ## infoq 每周精要 ${getDateStr()}
     ${contentStr}
