@@ -24,7 +24,7 @@ interface IStore {
   webhookList: IWebhookSubscribe[]
 }
 
-const FILE_NAME = 'store.json'
+const FILE_NAME = 'store_db.json'
 
 let store: IStore;
 
