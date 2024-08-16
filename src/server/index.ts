@@ -1,7 +1,7 @@
 import express from 'express'
-import { InfoType, InfoTypeList, RateTypeList, getStore, subscribeWebhook, unsubscribeWebhook } from '../store/index.js'
-import { sendMap } from '../send/index.js'
-import { DEFAULT_SERVER_PORT } from '../config.js'
+import { InfoType, InfoTypeList, RateTypeList, getStore, subscribeWebhook, unsubscribeWebhook } from '../store'
+import { sendMap } from '../send'
+import { DEFAULT_SERVER_PORT } from '../config'
 
 const app = express()
 

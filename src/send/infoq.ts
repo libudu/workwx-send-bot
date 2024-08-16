@@ -1,6 +1,6 @@
 import axios from "axios";
-import { ContentItemType, getDateStr, makeSender, truncateString } from "./util.js";
-import { PROJECT_URL } from "../env.js";
+import { ContentItemType, getDateStr, makeSender, truncateString } from "./util";
+import { PROJECT_URL } from "../env";
 
 
 // infoq 最近热点

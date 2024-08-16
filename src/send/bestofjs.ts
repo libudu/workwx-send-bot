@@ -1,10 +1,12 @@
 import axios from "axios";
-import { ContentItemType, getDateStr, makeSender, proxy } from "./util.js";
-import { PROJECT_URL } from "../env.js";
+import { ContentItemType, getDateStr, makeSender, proxy } from "./util";
+import { PROJECT_URL } from "../env";
 
-// bestofjs 最新js技术
+/**
+ * bestofjs 最新js技术
+ */
 export const fetchBestofJsItemList = async () => {
-  const SOURCE_URL = "https://bestofjs-static-api.vercel.app/projects.json"
+  const SOURCE_URL = 'https://bestofjs.org/data/projects.json'
   const res = await axios.get(SOURCE_URL, { proxy })
   let rawProjects: any[] = res.data.projects
   // 去除没有 weekly 数据的

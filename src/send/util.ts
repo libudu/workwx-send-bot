@@ -1,5 +1,5 @@
 import axios from "axios";
-import { isDev } from "../env.js";
+import { isDev } from "../env";
 
 export const proxy = isDev ? {
   host: '127.0.0.1',
@@ -41,7 +41,7 @@ export const truncateString = (str: string, num: number): string => {
 
 // 去除换行后面的空格，用于 js 格式化字符串
 const trimInnerSpace = (str: string) => {
-  return str.trim().replaceAll(/\n[ ]*/g, '\n')
+  return str.trim().replace(/\n[ ]*/g, '\n')
 }
 
 export const getDateStr = () => {

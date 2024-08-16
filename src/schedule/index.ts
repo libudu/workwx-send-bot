@@ -1,9 +1,9 @@
 import schedule from 'node-schedule'
-import { getStore } from '../store/index.js'
-import { sendMap } from '../send/index.js'
-import { SCHEDULE_PUSH_HOUR, SCHEDULE_PUSH_WEEK_DAY } from '../config.js'
-import { sendClockIn } from '../send/clockin.js'
-import { CLOCKIN_WEBHOOK } from '../env.js'
+import { getStore } from '../store'
+import { sendMap } from '../send'
+import { SCHEDULE_PUSH_HOUR, SCHEDULE_PUSH_WEEK_DAY } from '../config'
+import { sendClockIn } from '../send/clockin'
+import { CLOCKIN_WEBHOOK } from '../env'
 
 // 定时打卡提醒
 export const scheduleClockIn = () => {

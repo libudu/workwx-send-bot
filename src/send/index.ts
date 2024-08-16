@@ -1,5 +1,5 @@
-import { sendBestofjs } from "./bestofjs.js"
-import { sendInfoq } from "./infoq.js"
+import { sendBestofjs } from "./bestofjs"
+import { sendInfoq } from "./infoq"
 
 export const sendMap = {
   bestofjs: sendBestofjs,

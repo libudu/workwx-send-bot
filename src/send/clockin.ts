@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CLOCKIN_WEBHOOK } from "../env.js"
+import { CLOCKIN_WEBHOOK } from "../env"
 
 export const sendClockIn = async ({
   type,

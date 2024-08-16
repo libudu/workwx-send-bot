@@ -2,9 +2,8 @@
   "name": "node-typescript-boilerplate",
   "version": "0.0.0",
   "description": "Minimalistic boilerplate to quick-start Node.js development in TypeScript.",
-  "type": "module",
   "engines": {
-    "node": ">= 14.21 <19"
+    "node": ">= 14.21"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",

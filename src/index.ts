@@ -1,7 +1,7 @@
-import { isDev } from "./env.js"
-import { scheduleClockIn, scheduleStore } from "./schedule/index.js"
-import { startServer } from "./server/index.js"
-import { initStore } from "./store/index.js"
+import { isDev } from "./env"
+import { scheduleClockIn, scheduleStore } from "./schedule"
+import { startServer } from "./server"
+import { initStore } from "./store"
 
 const main = async () => {
   console.log("是否为开发环境:", isDev)
